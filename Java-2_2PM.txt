@@ -1,0 +1,76 @@
+creating first program in java
+
+- Every java program start with class
+- class name should start with capital letter
+- class name should be same as file name
+- class name starts with either aplhabet or special symbol(_, $)
+
+javac filename.java
+-compile the code
+
+java <bytecode/classname>
+-execute/run the code
+
+javac comes from jdk
+java comes from JRE, JRE starts searching for main
+
+Main Method
+- main is a entry point of every java program
+- without main java will compile the code convert it into byte code
+	can't execute the code or interpret the code
+	
+4 types of scopes in java
+public - global, which is accessible for all , from anywhere
+private - accessible within the class only
+protected - can be accessed inside the package/folder, can also be accessed outside the package by using inheritance
+default - It is not a reserved keyword, if you will not specify any scope then it is default. The scope cane be accessed by any class but within the package.
+
+Why main is public?
+-JRE uses main : java<bytecode>
+-Java command trigger the JRE
+-JRE load your class in the memory
+-JRE is looking for main
+-JRE is outside from your directory/folder/package
+-And outside the package things can access
+
+Why main is static?
+-Static things are loaded into memory when class is loaded.
+
+Why main is void?
+-main is void in nature
+-main is entry point so there is no need to return anything
+
+Main arguments - String args[]
+
+-main has command line arguments
+for e.g: copy xyz.txt abc.txt
+-copy is a command and xyz.txt and anc abc.txt are arguments
+
+What is command line arguments?
+- we can make our commands
+for e.g. wish happy birthday
+-we can pass any number of arguments, that's why it is array
+-All arguments are pass to main in form of array of string
+
+What is String?
+
+-String is a collection of class
+-String internally is a char[]
+-String is a predefined class in java as it is in capital letter
+
+What is System.out.println?
+-println(): print in new line, println comes 'out' object
+-out: out is an predefined object, which belongs to PrintStream class
+-System is a predefined class used for input, output and error
+System.in, System.out, System.err
+
+Println vs Print
+- println: print in new line
+- print: here cursor remains at the end of the text
+
+Can we overload main()?
+-Yes, we can overload the main
+-When we execute the class, JVM starts execution with public static void main(String args[])
+
+
+	
