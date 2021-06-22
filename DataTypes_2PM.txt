@@ -1,0 +1,38 @@
+Data Types:
+
+1 byte = 8 bits
+
+It is used to store integral only.
+byte - 1 byte 
+short - 2 bytes
+int - 4 bytes
+long - 8 bytes
+
+Enter the age of Student
+
+byte: 1 byte = 8 bits
+1 bit +- 
+7 bits number range
+bit 0, 1 base 2
+
+-2 ^ 7 to 2 ^ 7 - 1
+-128 to 127
+
+Decimal Values
+float - 4 bytes
+double - 8 bytes
+
+char - 2 bytes
+
+char msg[] = {'n', 'a', 'm', 'a', 's', 't', 'e'};
+-It is big problem with char[]
+-String better than char[]
+-String is a wrapper class of char[]
+
+boolean - size depending upon o/s
+
+Data Types: Primitive (value) and Reference (address/pointer)
+
+Reference Data Types: in Capital letters
+
+String
