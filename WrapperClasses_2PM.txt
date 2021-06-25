@@ -1,0 +1,43 @@
+Wrapper Class
+
+- Wrapper class is a class whose object wraps or contains primitive data types.
+e.g. String is a wrapper class as it wraps char[]
+
+Need of Wrapper Class
+
+- They convert primitive data types into objects. Objects are needed if we wish to modify the arguments passed into a method.
+- Wrapper classes in java.util.*; // * - all the classes
+
+Primitive Data Types
+
+- int
+- char
+- float
+- double
+- long
+- short
+- byte
+- boolean
+
+Wrapper Class
+
+- Integer
+- Character
+- Float
+- Double
+- Long
+- Short
+- Byte
+- Boolean
+
+
+Autoboxing and Unboxing
+
+Autoboxing: Automatic convertion of primitive data types to the object of their corresponding wrapper classes is known as autoboxing.
+
+e.g- int into Integer, long to Long etc
+
+
+Unboxing: It is the reverse process of autoboxing.
+
+e.g- Integer to int, Character to char etc
