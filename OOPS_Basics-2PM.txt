@@ -1,0 +1,67 @@
+2 major types of programming:
+
+- Procedural - Functions - Divide a problem into functions
+- OOPs (Object Oriented Programming Language) - Wrap all the variables and functions into a single unit - class
+
+Why OOPS?
+In C Programming:
+
+int x, y;
+
+add()
+{}
+sub()
+{}
+div()
+{}
+mul()
+{}
+
+sin()
+{
+ double x;
+}
+
+Solution:
+Wrap global variables in brackets in C++
+
+class A
+{
+int x, y;
+add()
+{}
+sub()
+{}
+div()
+{}
+mul()
+{}
+}
+
+class B
+{
+sin()
+{
+ double x;
+}
+}
+
+Is Java has Global Variable?
+- No, because in java every program start with class, and class doesn,t have global variable.
+
+What is OOPS?
+-Divide a Big problem into classes.
+OOPs Features:
+1. Class, Object
+object - real world entity
+e.g. AC, Car, Projector, Fan
+e.g. amit, ram, shyam 
+Classes - Collection of similar objects
+e.g. Human (features brain, height, 2 ears)
+object - ram state brain sharp, 6 feet height
+
+//Student, Employee
+
+class Student {
+
+}
