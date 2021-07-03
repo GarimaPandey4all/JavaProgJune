@@ -1,0 +1,27 @@
+Inheritance:
+
+1. In Development
+-One Class One File (SRP)
+-If your class is public so class name must be same as file name
+-So in one file we can n non public classes
+If one file (X.java) has 3 classes e.g
+class X() {} ,  class Y() {}, class Z {}
+After compile it will create 3 byte codes
+X.class, Y.class, Z.class
+
+
+Class Relationship: Communicate b/w two classes
+1. IS - A Relationship
+BMW is a car
+Lion is a animal
+Ram is a Student
+Piano is a instrument
+SavingAccount is a Account
+HomaLoan is a Loan
+PartTimeEmployee is a Employee
+
+2. HAS - A RElationship
+Ram has a Car
+BMW has a Driver
+Customer has a Order
+Customer has a Account
