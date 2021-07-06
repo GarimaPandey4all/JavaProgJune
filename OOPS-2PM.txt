@@ -1,0 +1,26 @@
+Overriding 
+- When Parent feature is outdated so we override the parent feature in a child.
+- Overriding hide the parent feature
+
+1. Must be inheritance
+2. Method signature must be same
+void roi(), same child has same void roi()
+
+public
+private
+protected - inheritance
+default
+
+Final Keyword
+
+final int a = 10;
+
+- If a variable is declared with the final keyword, its value can't be changed once initialized.
+
+public final void showData()
+
+- A method, declared with the final keyword, can't be overridden or hidden by subclasses
+
+final class Parent {}
+
+- A class declared as a final class, can't be subclassed
