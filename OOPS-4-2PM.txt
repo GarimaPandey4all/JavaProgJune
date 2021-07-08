@@ -1,0 +1,4 @@
+finalize: finalize is used to perform clean up processing just before object is garbage collected.
+
+Upcasting and Downcasting: Typescasting
+
