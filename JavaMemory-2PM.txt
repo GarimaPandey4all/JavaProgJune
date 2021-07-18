@@ -1,0 +1,28 @@
+Memory Management:
+
+- Heap (Dynamic Memory Allocation), Stack (2MB to 5MB) (Static Memory Allocation), Perm Space
+- Young Generation, Old Generation
+- Garbage Collector
+	a) Minor GC
+	b) Maos GC
+	
+Thread:
+
+- code in execution is thread
+- one more thread execute with code that is Garbage Collector.
+
+How to increase/decrease the size of heap/stack?
+
+heap:
+Initial Size -Xms20m
+Max Size -Xmx200m
+
+Stack:
+-Xss2m
+
+Permspace:
+-XX:PermSize=20m
+
+How to monitor the memory?
+Third party tool - Visual VM , Visual GC
+
