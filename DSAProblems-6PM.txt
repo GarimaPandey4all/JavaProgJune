@@ -1,0 +1,46 @@
+Warm Up Problems
+
+Arrays:
+
+1. Reverse a String without using any inbuilt functions of java
+
+2. Leaders element in an Array, O(n)
+
+- Brute Force Approach (Naive Approach) - Home Work
+- Scan array from Right (Optimized Approach)
+
+3. Find the Missing Number with overflow occurence
+- Addition based Approach - Naive Approach
+- X-OR Based Approach - Optimized Approach
+
+X-OR: Exclusive OR, Bitwise Operator
+
+.................. 2 ^ 1 2 ^ 0
+128 64 32 16 8 4 2 1
+
+a = 5 = 0000 0101
+b = 4 = 0000 0100 ^
+	0000 0001 = 1
+
+a ^ b
+
+0
+0 ^
+0
+
+1
+0 ^
+1
+
+0
+1 ^
+1
+
+1
+1 ^
+0
+
+
+
+
+
