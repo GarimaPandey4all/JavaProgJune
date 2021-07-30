@@ -1,0 +1,14 @@
+File Handling:
+
+1. Login/Register
+2. Teacher Test Upload
+
+Streams: Flow of Data
+
+InputStream
+OutputStream
+
+1. Text --> Reader, Writer (Abstract)
+2. Byte --> InputStream , Outputstream (Abstract)
+
+
