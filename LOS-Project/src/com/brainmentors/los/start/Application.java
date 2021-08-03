@@ -20,6 +20,7 @@ public class Application {
 		}
 		else {
 			//Existing Customer
+			process.checkStage(applicationNumber);
 		}
 	}
 

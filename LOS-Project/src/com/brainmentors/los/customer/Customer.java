@@ -7,7 +7,14 @@ public class Customer {
 	private Address address;  // HAS - A Relationship
 	private double income;
 	private double liability;
+	private LoanDetails loanDetails;
 	
+	public LoanDetails getLoanDetails() {
+		return loanDetails;
+	}
+	public void setLoanDetails(LoanDetails loanDetails) {
+		this.loanDetails = loanDetails;
+	}
 	public int getId() {
 		return id;
 	}
