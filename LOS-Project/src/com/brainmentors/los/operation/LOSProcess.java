@@ -2,21 +2,63 @@ package com.brainmentors.los.operation;
 import com.brainmentors.los.customer.Customer;
 import com.brainmentors.los.customer.LoanDetails;
 import com.brainmentors.los.customer.PersonalInformation;
+import com.brainmentors.los.utils.StageConstants;
+import com.brainmentors.los.utils.Utility;
 
 import static com.brainmentors.los.utils.Utility.scanner;
 import static com.brainmentors.los.utils.Utility.serialCounter;
 
 import java.util.ArrayList;
 
-public class LOSProcess {
+public class LOSProcess implements StageConstants{
 	
 	//private Customer customers[] = new Customer[100];
 	private ArrayList<Customer> customers = new ArrayList<>();
+	
+	public void qde(Customer customer)
+	{
+		customer.setStage(QDE);
+		
+		System.out.println("Application Number "+customer.getId());
+		System.out.println("Name "+customer.getPersonal().getFirstName()
+				+" "+customer.getPersonal().getLastName());
+		System.out.println("You Applied for a "+customer.getLoanDetails().getType()
+				+" Duration "+customer.getLoanDetails().getDuration()
+				+" Amount "+customer.getLoanDetails().getAmount());
+		System.out.println("Enter the Pan Card Number");
+		String panCard = scanner.next();
+		System.out.println("Enter Voter Id");
+		String voterId = scanner.next();
+		System.out.println("Enter the Income");
+		double income = scanner.nextDouble();
+		System.out.println("Enter the Liability");
+		double liability = scanner.nextDouble();
+		System.out.println("Enter the Phone");
+		String phone = scanner.next();
+		System.out.println("Enter the Email");
+		String email = scanner.next();
+		
+		customer.getPersonal().setPanCard(panCard);
+		customer.getPersonal().setVoterId(voterId);
+		customer.getPersonal().setEmail(email);
+		customer.setIncome(income);
+		customer.setLiability(liability);
+		
+	}
+	
+	public void moveToNextStage(Customer customer)
+	{
+		if(customer.getStage() == QDE)
+		{
+			
+		}
+	}
 	
 	public void sourcing()
 	{
 		Customer customer = new Customer();
 		customer.setId(serialCounter);
+		customer.setStage(SOURCING);
 		
 		System.out.println("Enter the First Name");
 		String firstName = scanner.next();
@@ -43,14 +85,30 @@ public class LOSProcess {
 		loanDetails.setAmount(amount);
 		customer.setLoanDetails(loanDetails);
 		
-		customers.add(customer);
-		
+		customers.add(customer);	
 		serialCounter++;
+		
+		System.out.println("Sourcing Done...");
 	}
 	
 	public void checkStage(int applicationNumber)
 	{
+		boolean isStageFound = false;
 		
+		if(customers != null && customers.size() > 0)
+		{
+			for(Customer customer : customers)
+			{
+				if(customer.getId() == applicationNumber)
+				{
+					System.out.println("You are on "+ Utility.getStageName(customer.getStage()));
+					isStageFound = true;
+					break;
+				}
+			}
+		}	
+		if(!isStageFound) {
+			System.out.println("Invalid Application Number");
+		}
 	}
-
 }
