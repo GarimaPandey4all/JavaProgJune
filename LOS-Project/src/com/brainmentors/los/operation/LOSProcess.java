@@ -2,6 +2,7 @@ package com.brainmentors.los.operation;
 import com.brainmentors.los.customer.Customer;
 import com.brainmentors.los.customer.LoanDetails;
 import com.brainmentors.los.customer.PersonalInformation;
+import com.brainmentors.los.utils.CommonConstants;
 import com.brainmentors.los.utils.StageConstants;
 import com.brainmentors.los.utils.Utility;
 
@@ -10,7 +11,7 @@ import static com.brainmentors.los.utils.Utility.serialCounter;
 
 import java.util.ArrayList;
 
-public class LOSProcess implements StageConstants{
+public class LOSProcess implements StageConstants, CommonConstants{
 	
 	//private Customer customers[] = new Customer[100];
 	private ArrayList<Customer> customers = new ArrayList<>();
@@ -48,10 +49,109 @@ public class LOSProcess implements StageConstants{
 	
 	public void moveToNextStage(Customer customer)
 	{
-		if(customer.getStage() == QDE)
+		while(true)
 		{
+			if(customer.getStage() == SOURCING)
+			{
+				System.out.println("Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().charAt(0);
+				
+				if(choice == YES)
+				{
+					qde(customer);
+				}
+				else {
+					return;
+				}
+			}
 			
+			if(customer.getStage() == QDE)
+			{
+				System.out.println("Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().charAt(0);
+				
+				if(choice == YES)
+				{
+					dedupe(customer);
+				}
+				else {
+					return;
+				}
+			}
+			
+			if(customer.getStage() == DEDUPE)
+			{
+				System.out.println("Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().charAt(0);
+				
+				if(choice == YES)
+				{
+					scoring();
+				}
+				else {
+					return;
+				}
+			}
 		}
+	}
+	
+	public void dedupe(Customer customer)
+	{
+		//System.out.println("Inside dedupe");
+		
+		boolean isNegativeFound = false;
+		
+		for(Customer negativeCustomer : DB.getNegativeCustomers())
+		{
+			int negativeScore = isNegative(customer, negativeCustomer);
+			
+			if(negativeScore > 0)
+			{
+				System.out.println("Customer Record Fraud in Dedupe and Score is "+negativeScore);
+				isNegativeFound = true;
+				break;
+			}
+		}
+		
+		if(isNegativeFound)
+		{
+			System.out.println("Do you want to proceed this loan "+customer.getId());
+		}
+		
+	}
+	
+	private int isNegative(Customer customer, Customer negative)
+	{
+		int percentageMatch = 0;
+		
+		if(customer.getPersonal().getPhone().equals(negative.getPersonal().getPhone()))
+		{
+			percentageMatch += 20;
+		}
+		if(customer.getPersonal().getEmail().equals(negative.getPersonal().getEmail()))
+		{
+			percentageMatch += 20;
+		}
+		if(customer.getPersonal().getVoterId().equals(negative.getPersonal().getVoterId()))
+		{
+			percentageMatch += 20;
+		}
+		if(customer.getPersonal().getPanCard().equals(negative.getPersonal().getPanCard()))
+		{
+			percentageMatch += 20;
+		}
+		if(customer.getPersonal().getAge() == negative.getPersonal().getAge() && 
+				customer.getPersonal().getFirstName().equalsIgnoreCase(negative.getPersonal().getFirstName()))
+		{
+			percentageMatch += 20;
+		}
+		
+		return percentageMatch;
+	}
+	
+	public void scoring()
+	{
+		System.out.println("Inside Scoring");
 	}
 	
 	public void sourcing()
@@ -103,6 +203,7 @@ public class LOSProcess implements StageConstants{
 				{
 					System.out.println("You are on "+ Utility.getStageName(customer.getStage()));
 					isStageFound = true;
+					moveToNextStage(customer);
 					break;
 				}
 			}
