@@ -3,6 +3,7 @@ import com.brainmentors.los.customer.Customer;
 import com.brainmentors.los.customer.LoanDetails;
 import com.brainmentors.los.customer.PersonalInformation;
 import com.brainmentors.los.utils.CommonConstants;
+import com.brainmentors.los.utils.LoanConstants;
 import com.brainmentors.los.utils.StageConstants;
 import com.brainmentors.los.utils.Utility;
 
@@ -42,6 +43,7 @@ public class LOSProcess implements StageConstants, CommonConstants{
 		customer.getPersonal().setPanCard(panCard);
 		customer.getPersonal().setVoterId(voterId);
 		customer.getPersonal().setEmail(email);
+		customer.getPersonal().setPhone(phone);
 		customer.setIncome(income);
 		customer.setLiability(liability);
 		
@@ -53,8 +55,8 @@ public class LOSProcess implements StageConstants, CommonConstants{
 		{
 			if(customer.getStage() == SOURCING)
 			{
-				System.out.println("Want to Move to the Next Stage Y/N");
-				char choice = scanner.next().charAt(0);
+				System.out.println("Sourcing, Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().toUpperCase().charAt(0);
 				
 				if(choice == YES)
 				{
@@ -67,8 +69,8 @@ public class LOSProcess implements StageConstants, CommonConstants{
 			
 			if(customer.getStage() == QDE)
 			{
-				System.out.println("Want to Move to the Next Stage Y/N");
-				char choice = scanner.next().charAt(0);
+				System.out.println("QDE, Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().toUpperCase().charAt(0);
 				
 				if(choice == YES)
 				{
@@ -81,12 +83,26 @@ public class LOSProcess implements StageConstants, CommonConstants{
 			
 			if(customer.getStage() == DEDUPE)
 			{
-				System.out.println("Want to Move to the Next Stage Y/N");
-				char choice = scanner.next().charAt(0);
+				System.out.println("Dedupe, Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().toUpperCase().charAt(0);
 				
 				if(choice == YES)
 				{
-					scoring();
+					scoring(customer);
+				}
+				else {
+					return;
+				}
+			}
+			
+			if(customer.getStage() == SCORING)
+			{
+				System.out.println("Scoring, Want to Move to the Next Stage Y/N");
+				char choice = scanner.next().toUpperCase().charAt(0);
+				
+				if(choice == YES)
+				{
+					approval(customer);
 				}
 				else {
 					return;
@@ -97,6 +113,7 @@ public class LOSProcess implements StageConstants, CommonConstants{
 	
 	public void dedupe(Customer customer)
 	{
+		customer.setStage(DEDUPE);
 		//System.out.println("Inside dedupe");
 		
 		boolean isNegativeFound = false;
@@ -116,6 +133,13 @@ public class LOSProcess implements StageConstants, CommonConstants{
 		if(isNegativeFound)
 		{
 			System.out.println("Do you want to proceed this loan "+customer.getId());
+			char choice = scanner.next().toUpperCase().charAt(0);
+			if(choice == NO)
+			{
+				customer.setRemarks("Loan is Rejected, Due to High score in Dedupe Check");
+				customer.setStage(REJECT);
+				return;
+			}
 		}
 		
 	}
@@ -149,9 +173,85 @@ public class LOSProcess implements StageConstants, CommonConstants{
 		return percentageMatch;
 	}
 	
-	public void scoring()
+	public void scoring(Customer customer)
 	{
-		System.out.println("Inside Scoring");
+		customer.setStage(SCORING);
+		
+		//System.out.println("Inside Scoring");
+		
+		int score = 0;
+		
+		double totalIncome = customer.getIncome() - customer.getLiability();
+		
+		if(customer.getPersonal().getAge() >= 21 && customer.getPersonal().getAge() <= 35)
+		{
+			score += 50;
+		}
+		
+		if(totalIncome >= 200000)
+		{
+			score += 50;
+		}
+		
+		customer.getLoanDetails().setScore(score);
+	}
+	
+	public void approval(Customer customer)
+	{
+		customer.setStage(APPROVAL);
+		
+		int score = customer.getLoanDetails().getScore();
+		
+		System.out.println("Id "+customer.getId());
+		System.out.println("Name is "+customer.getPersonal().getFirstName()+" "+customer.getPersonal().getLastName());
+		System.out.println("Loan "+customer.getLoanDetails().getType() 
+				+" Amount "+customer.getLoanDetails().getAmount()
+				+" Duration "+customer.getLoanDetails().getDuration());
+		
+		double approveAmount = customer.getLoanDetails().getAmount() * (score/100);
+		System.out.println("Loan Approve Amount is "+approveAmount);
+		System.out.println("Do you want to bring this Loan or Not");
+		char choice = scanner.next().toUpperCase().charAt(0);
+		
+		if(choice == NO)
+		{
+			customer.setStage(REJECT);
+			customer.setRemarks("Customer Deny the Approved Amount "+approveAmount);
+			return;
+		}
+		else {
+			showEMI(customer);
+		}
+	}
+	
+	private void showEMI(Customer customer)
+	{
+		System.out.println("EMI is ");
+		
+		if(customer.getLoanDetails().getType() == LoanConstants.HOME_LOAN)
+		{
+			customer.getLoanDetails().setRoi(LoanConstants.HOME_LOAN_ROI);
+		}
+		
+		if(customer.getLoanDetails().getType() == LoanConstants.AUTO_LOAN)
+		{
+			customer.getLoanDetails().setRoi(LoanConstants.AUTO_LOAN_ROI);
+		}
+		
+		if(customer.getLoanDetails().getType() == LoanConstants.PERSONAL_LOAN)
+		{
+			customer.getLoanDetails().setRoi(LoanConstants.PERSONAL_LOAN_ROI);
+		}
+		
+		double perMonthPrinciple = 
+		customer.getLoanDetails().getAmount() / customer.getLoanDetails().getDuration();
+		
+		double interest = (perMonthPrinciple * customer.getLoanDetails().getRoi() 
+				* customer.getLoanDetails().getDuration()) / 100;
+		
+		double totalEmi = perMonthPrinciple + interest;
+		System.out.println("Your EMI is "+totalEmi);
+		
 	}
 	
 	public void sourcing()

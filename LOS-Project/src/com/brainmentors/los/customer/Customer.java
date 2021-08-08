@@ -9,7 +9,14 @@ public class Customer {
 	private double income;
 	private double liability;
 	private LoanDetails loanDetails;
+	private String remarks;
 	
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public int getStage() {
 		return stage;
 	}

@@ -19,7 +19,7 @@ public interface DB {
 		pd.setPhone("8327469876");
 		pd.setPanCard("A111");
 		pd.setEmail("tim@gmail.com");
-		
+		customer.setPersonal(pd);
 		negativeCustomers.add(customer);
 		
 		customer = new Customer();
@@ -30,7 +30,7 @@ public interface DB {
 		pd.setPhone("8327469989");
 		pd.setPanCard("A222");
 		pd.setEmail("tom@gmail.com");
-		
+		customer.setPersonal(pd);
 		negativeCustomers.add(customer);
 		
 		return negativeCustomers;
